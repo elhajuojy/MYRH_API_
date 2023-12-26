@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/v1/job_offers")
@@ -20,11 +21,19 @@ public class JobOfferController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<JobOfferResponse>> getAllJobOffers() {
+    public ResponseEntity<Page<JobOfferResponse>> getAllJobOffers(
+//            @RequestParam(required = false) String title,
+//            @RequestParam(required = false) String education
+            @RequestParam Map<String,String> queryParams
+
+    ) {
         return ResponseEntity.ok(
-                this.jobOfferService.getAllJobOffers(0, 10)
+                this.jobOfferService.getAllJobOffers(queryParams)
         );
     }
+
+
+
 
     @PostMapping
     public ResponseEntity<JobOfferResponse> addNewOffer(@RequestBody JobOfferRequest jobOfferRequest) {

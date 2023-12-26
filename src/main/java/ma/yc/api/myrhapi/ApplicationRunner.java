@@ -21,6 +21,7 @@ public class ApplicationRunner implements CommandLineRunner {
     @Override
     public void run(String... args) {
         System.out.println("TEST TEST");
+        int level=1;
         for (String job : new String[]{"job-1", "job-2", "job-3", "job-5"}) {
             logger.info("SAVING NEW JOBS FROM THE RUNNER " + job);
 
@@ -28,7 +29,8 @@ public class ApplicationRunner implements CommandLineRunner {
             jobOffer.setTitle(job);
             jobOffer.setDescription("description for " + job);
             jobOffer.setContract(Contract.CDI);
-            jobOffer.setEducation("BAC+5");
+            jobOffer.setEducation("BAC-"+level);
+            level=level+2;
             jobOffer.setLocation("Casablanca");
             jobOffer.setSalary(10000.0);
             jobOffer.setVisibility(false);

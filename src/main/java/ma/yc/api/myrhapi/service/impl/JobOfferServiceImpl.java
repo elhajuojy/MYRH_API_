@@ -9,9 +9,14 @@ import ma.yc.api.myrhapi.mappers.JobMapper;
 import ma.yc.api.myrhapi.repository.JobOfferRepository;
 import ma.yc.api.myrhapi.service.EmailService;
 import ma.yc.api.myrhapi.service.JobOfferService;
+import ma.yc.api.myrhapi.specifications.JobOfferSpecifications;
+import org.slf4j.Logger;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 @Service
 public class JobOfferServiceImpl implements JobOfferService {
@@ -19,6 +24,7 @@ public class JobOfferServiceImpl implements JobOfferService {
     private final JobOfferRepository jobOfferRepository;
     private final JobMapper jobOfferShiftBuilder;
     private final EmailService emailService;
+    private final Logger logger = org.slf4j.LoggerFactory.getLogger(JobOfferServiceImpl.class);
 
     public JobOfferServiceImpl(JobOfferRepository jobOfferRepository, EmailService emailService) {
         this.jobOfferRepository = jobOfferRepository;
@@ -35,9 +41,35 @@ public class JobOfferServiceImpl implements JobOfferService {
     }
 
     @Override
-    public Page<JobOfferResponse> getAllJobOffers(int page, int size) {
+    public Page<JobOfferResponse> getAllJobOffers(int page, int size, String title, String education) {
+        return null;
+    }
+
+    @Override
+    public Page<JobOfferResponse> getAllJobOffers(Map<String,String> queryParams) {
+        int page = Integer.parseInt(queryParams.getOrDefault("page","0"));
+        int size = Integer.parseInt(queryParams.getOrDefault("size","10"));
+
+        //: get the query params
+        String title = queryParams.getOrDefault("title","");
+        String education = queryParams.getOrDefault("education","");
+        String location = queryParams.getOrDefault("location","");
+        logger.info("QUERY PARAMS" + queryParams.toString());
+        //: build the page request
         PageRequest pageRequest = PageRequest.of(page, size);
-        return jobOfferRepository.findAll(pageRequest)
+        Specification<JobOffer> spec = Specification.where(null);
+
+        if (title != null && !title.isEmpty())
+            spec = spec.and(JobOfferSpecifications.titleLike(title));
+        if (education != null && !education.isEmpty())
+            spec = spec.and(JobOfferSpecifications.educationLike(education));
+        if (location != null && !location.isEmpty())
+            spec = spec.and(JobOfferSpecifications.locationLike(location));
+
+        logger.info("FIND BY SPECIFICATION" + spec.toString());
+
+
+        return jobOfferRepository.findAll(spec,pageRequest)
                 .map(jobOfferShiftBuilder::toResponse);
     }
 
