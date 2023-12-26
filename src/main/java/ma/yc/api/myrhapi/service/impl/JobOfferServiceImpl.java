@@ -7,6 +7,7 @@ import ma.yc.api.myrhapi.entity.Company;
 import ma.yc.api.myrhapi.entity.JobOffer;
 import ma.yc.api.myrhapi.mappers.JobMapper;
 import ma.yc.api.myrhapi.repository.JobOfferRepository;
+import ma.yc.api.myrhapi.service.EmailService;
 import ma.yc.api.myrhapi.service.JobOfferService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,9 +18,11 @@ public class JobOfferServiceImpl implements JobOfferService {
 
     private final JobOfferRepository jobOfferRepository;
     private final JobMapper jobOfferShiftBuilder;
+    private final EmailService emailService;
 
-    public JobOfferServiceImpl(JobOfferRepository jobOfferRepository) {
+    public JobOfferServiceImpl(JobOfferRepository jobOfferRepository, EmailService emailService) {
         this.jobOfferRepository = jobOfferRepository;
+        this.emailService = emailService;
         this.jobOfferShiftBuilder = JobMapper.INSTANCE;
     }
 
@@ -46,6 +49,13 @@ public class JobOfferServiceImpl implements JobOfferService {
         );
         jobOffer.setVisibility(visibility);
         this.jobOfferRepository.save(jobOffer);
+
+        //: SEND EMAIL TO COMPANY TO INFORM HIM THAT HIS JOB OFFER IS NOW VISIBLE
+        this.emailService.sendEmail(jobOffer.getCompany().getEmail(),
+                "Job offer visibility changed",
+                "Your job offer visibility has been changed to "+
+                        (visibility ?"visible":"invisible"));
+
         return jobOfferShiftBuilder.toResponse(jobOffer);
     }
 }
