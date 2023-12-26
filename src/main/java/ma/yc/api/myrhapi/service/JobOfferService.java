@@ -8,4 +8,6 @@ public interface JobOfferService {
 
     JobOfferResponse addNewJobOffer(JobOfferRequest jobOfferRequest);
     Page<JobOfferResponse> getAllJobOffers(int page, int size);
+
+    JobOfferResponse changeJobOfferVisibility(String jobOfferId, boolean visibility);
 }

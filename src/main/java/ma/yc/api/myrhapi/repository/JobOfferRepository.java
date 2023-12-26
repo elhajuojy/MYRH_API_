@@ -4,10 +4,13 @@ import ma.yc.api.myrhapi.enums.Contract;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface JobOfferRepository extends JpaRepository<JobOffer,Long> {
 
     List<JobOffer> findByContract(Contract contract);
 
     List<JobOffer> findByTitle(String title);
+
+
 }

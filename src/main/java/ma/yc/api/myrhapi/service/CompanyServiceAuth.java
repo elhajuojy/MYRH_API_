@@ -3,7 +3,7 @@ package ma.yc.api.myrhapi.service;
 import ma.yc.api.myrhapi.dto.CompanyRequest;
 import ma.yc.api.myrhapi.dto.CompanyResponse;
 
-public interface CompanyServiceAuth {
+public interface CompanyServiceAuth  {
     
     boolean isEnabled();
     

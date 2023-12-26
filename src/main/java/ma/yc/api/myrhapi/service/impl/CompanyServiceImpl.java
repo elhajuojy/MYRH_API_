@@ -5,6 +5,7 @@ import jakarta.activation.FileDataSource;
 import ma.yc.api.common.exception.business.NotFoundException;
 import ma.yc.api.myrhapi.dto.CompanyRequest;
 import ma.yc.api.myrhapi.dto.CompanyResponse;
+import ma.yc.api.myrhapi.dto.JobOfferResponse;
 import ma.yc.api.myrhapi.entity.Company;
 import ma.yc.api.myrhapi.entity.ValidationCode;
 import ma.yc.api.myrhapi.mappers.CompanyMapper;
@@ -14,6 +15,7 @@ import ma.yc.api.myrhapi.service.CompanyService;
 import ma.yc.api.myrhapi.service.EmailService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
