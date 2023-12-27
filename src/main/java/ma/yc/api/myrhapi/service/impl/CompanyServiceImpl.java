@@ -25,6 +25,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -86,9 +87,10 @@ public class CompanyServiceImpl implements CompanyService {
         String filepath = null;
         if (file != null) {
             String extension = Objects.requireNonNull(file.getOriginalFilename()).split("\\.")[1];
-            String uploadDir = "src/main/resources/static/uploads";
-            String fileName =  faker.number().randomDigit() + "." + extension;
-            filepath = uploadDir + "/" + fileName;
+            String uploadDir = "src/main/resources/static";
+            String fileName =  UUID.randomUUID() + "." + extension;
+            logger.info("file name to upload : " + fileName);
+            filepath =  fileName;
             Path path = Path.of(uploadDir);
             if(!Files.exists(path)){
                 try {
