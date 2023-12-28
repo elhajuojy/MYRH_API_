@@ -5,12 +5,13 @@ import ma.yc.api.myrhapi.dto.ApplicantResponse;
 import ma.yc.api.myrhapi.mappers.ApplicantMapper;
 import ma.yc.api.myrhapi.repository.ApplicantRepository;
 import ma.yc.api.myrhapi.service.ApplicantService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ApplicantServiceImpl implements ApplicantService {
 
     private final ApplicantRepository applicantRepository;
     private final ApplicantMapper applicantMapper;
-    private final
 
     public ApplicantServiceImpl(ApplicantRepository applicantRepository) {
         this.applicantRepository = applicantRepository;

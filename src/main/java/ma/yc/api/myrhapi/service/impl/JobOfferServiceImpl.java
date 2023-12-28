@@ -11,9 +11,12 @@ import ma.yc.api.myrhapi.service.EmailService;
 import ma.yc.api.myrhapi.service.JobOfferService;
 import ma.yc.api.myrhapi.specifications.JobOfferSpecifications;
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -23,10 +26,12 @@ public class JobOfferServiceImpl implements JobOfferService {
 
     private final JobOfferRepository jobOfferRepository;
     private final JobMapper jobOfferShiftBuilder;
+
+
     private final EmailService emailService;
     private final Logger logger = org.slf4j.LoggerFactory.getLogger(JobOfferServiceImpl.class);
 
-    public JobOfferServiceImpl(JobOfferRepository jobOfferRepository, EmailService emailService) {
+    public JobOfferServiceImpl(JobOfferRepository jobOfferRepository,EmailService emailService) {
         this.jobOfferRepository = jobOfferRepository;
         this.emailService = emailService;
         this.jobOfferShiftBuilder = JobMapper.INSTANCE;

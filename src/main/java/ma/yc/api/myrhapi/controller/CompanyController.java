@@ -7,6 +7,7 @@ import ma.yc.api.myrhapi.dto.CompanyResponse;
 import ma.yc.api.myrhapi.service.CompanyService;
 import ma.yc.api.myrhapi.dto.CompanyRequest;
 import ma.yc.api.myrhapi.dto.CompanyResponse;
+import ma.yc.api.myrhapi.service.EmailService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,9 +18,11 @@ import java.util.List;
 public class CompanyController {
 
     private final CompanyService companyService;
+    private final EmailService emailService;
 
-    public CompanyController(CompanyService companyService) {
+    public CompanyController(CompanyService companyService, EmailService emailService) {
         this.companyService = companyService;
+        this.emailService = emailService;
     }
 
     @GetMapping
@@ -36,6 +39,10 @@ public class CompanyController {
     @PostMapping("/auth")
     public CompanyResponse authentication(@RequestBody @Validated CompanyRequestAuth companyRequestAuth) {
         return companyService.authentification(companyRequestAuth.getLogin(), companyRequestAuth.getPassword());
+    }
+    @PostMapping("/email")
+    public boolean sendEmailTest() {
+        return emailService.sendEmail("souirimehdi@gmail.com","test", "test" );
     }
 
 

@@ -17,8 +17,8 @@ public class Applicant {
     private String lastName;
     private String email;
     private String phoneNumber;
-    private String resume;
-    private String coverLetter;
+    private String coverLetterPath;
+    private String resumePath;
     private String address;
     private String education;
     private String experience;

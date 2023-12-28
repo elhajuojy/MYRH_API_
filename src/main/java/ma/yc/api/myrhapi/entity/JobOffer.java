@@ -21,10 +21,8 @@ public class JobOffer {
     private String description;
     private Double salary;
     private String location;
-
     @Enumerated(EnumType.STRING)
     private Contract contract = Contract.CDI;
-
     private boolean visibility;
     private String education;
 

@@ -109,7 +109,7 @@ public class CompanyServiceImpl implements CompanyService {
         }
 
 
-        //TODO: UPLOAD THE IMAGE TO THE SERVER THEN RETURN THE PATH FROM THE SERVER
+        //: UPLOAD THE IMAGE TO THE SERVER THEN RETURN THE PATH FROM THE SERVER
         if (filepath == null) {
             throw new RuntimeException("image is required");
         }

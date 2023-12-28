@@ -18,6 +18,15 @@ public class ApplicantRequest {
     private MultipartFile resume;
     @NotNull(message = "phone is required")
     private String phone;
+    @NotNull(message = "email is required")
+    private String email;
+    @NotNull(message = "address is required")
+    private String address;
+    @NotNull(message = "education is required")
+    private String education;
+    @NotNull(message = "experience is required")
+    private String experience;
+    private MultipartFile coverLetter;
 
 
 }
