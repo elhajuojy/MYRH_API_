@@ -16,15 +16,7 @@ public class AgentController {
         this.jobOfferService = jobOfferService;
     }
 
-    @PostMapping("/job_offers")
-    public ResponseEntity<JobOfferResponse> changeJobOfferVisibility(
-           @RequestBody JobOfferChangeVisibilityRequest jobOfferChangeVisibilityRequest
-    ) {
-        return ResponseEntity.ok(jobOfferService.changeJobOfferVisibility(
-                jobOfferChangeVisibilityRequest.getJobOfferId(),
-                jobOfferChangeVisibilityRequest.isVisibility()
-        ));
-    }
+
 
 
 }

@@ -1,4 +1,6 @@
-package ma.yc.api.myrhapi.controller ;
+package ma.yc.api.myrhapi.controller;
+
+import ma.yc.api.myrhapi.dto.JobOfferChangeVisibilityRequest;
 import ma.yc.api.myrhapi.dto.JobOfferRequest;
 import ma.yc.api.myrhapi.dto.JobOfferResponse;
 import ma.yc.api.myrhapi.service.JobOfferService;
@@ -6,8 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -22,18 +22,20 @@ public class JobOfferController {
 
     @GetMapping
     public ResponseEntity<Page<JobOfferResponse>> getAllJobOffers(
-//            @RequestParam(required = false) String title,
-//            @RequestParam(required = false) String education
-            @RequestParam Map<String,String> queryParams
-
+            @RequestParam Map<String, String> queryParams
     ) {
-        return ResponseEntity.ok(
-                this.jobOfferService.getAllJobOffers(queryParams)
-        );
+        return ResponseEntity.ok(this.jobOfferService.getAllJobOffers(queryParams));
     }
 
-
-
+    @PostMapping("/change_visibility")
+    public ResponseEntity<JobOfferResponse> changeJobOfferVisibility(
+            @RequestBody JobOfferChangeVisibilityRequest jobOfferChangeVisibilityRequest
+    ) {
+        return ResponseEntity.ok(jobOfferService.changeJobOfferVisibility(
+                jobOfferChangeVisibilityRequest.getJobOfferId(),
+                jobOfferChangeVisibilityRequest.isVisibility()
+        ));
+    }
 
     @PostMapping
     public ResponseEntity<JobOfferResponse> addNewOffer(@RequestBody JobOfferRequest jobOfferRequest) {

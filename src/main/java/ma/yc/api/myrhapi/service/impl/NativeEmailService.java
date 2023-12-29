@@ -1,5 +1,6 @@
-package ma.yc.api.myrhapi.service;
+package ma.yc.api.myrhapi.service.impl;
 
+import ma.yc.api.myrhapi.service.EmailService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Primary;
@@ -7,12 +8,10 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import java.awt.font.TextHitInfo;
-
 @Service()
 //@Qualifier("native")
 @Primary
-public class NativeEmailService implements EmailService{
+public class NativeEmailService implements EmailService {
 
 
     private JavaMailSender javaMailSender;

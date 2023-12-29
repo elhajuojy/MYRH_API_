@@ -40,11 +40,6 @@ public class CompanyController {
     public CompanyResponse authentication(@RequestBody @Validated CompanyRequestAuth companyRequestAuth) {
         return companyService.authentification(companyRequestAuth.getLogin(), companyRequestAuth.getPassword());
     }
-    @PostMapping("/email")
-    public boolean sendEmailTest() {
-        return emailService.sendEmail("souirimehdi@gmail.com","test", "test" );
-    }
-
 
     @GetMapping("/sendCodeValidation/{email}")
     public boolean sendCodeValidation(@PathVariable String email) {
