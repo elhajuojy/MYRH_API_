@@ -35,7 +35,7 @@ public class JobApplicationRequest {
     @NotNull(message = "resume is required")
     private MultipartFile resume;
     @NotNull(message = "resume is required")
-    private MultipartFile coverLetter;
+    private String coverLetter;
     @NotNull(message = "job offer id is required")
-    private Long jobOfferId;
+    private Integer jobOfferId;
 }

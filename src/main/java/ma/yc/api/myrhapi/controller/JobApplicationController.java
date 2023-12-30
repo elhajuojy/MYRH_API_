@@ -1,13 +1,15 @@
 package ma.yc.api.myrhapi.controller ;
 
+import io.micrometer.core.annotation.Timed;
 import ma.yc.api.myrhapi.dto.JobApplicationRequest;
+import ma.yc.api.myrhapi.dto.JobApplicationResponse;
 import ma.yc.api.myrhapi.service.JobApplicationService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping ;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
 @RestController
 @RequestMapping("api/v1/job_applications")
+@CrossOrigin("*")
 class JobApplicationController {
     private final JobApplicationService jobApplicationService;
     public JobApplicationController(JobApplicationService jobApplicationService) {
@@ -16,10 +18,12 @@ class JobApplicationController {
 
 
     @PostMapping
-    public void applyToJob(
-            @RequestBody JobApplicationRequest jobApplicationRequest
+    @Timed
+    public JobApplicationResponse applyToJob(
+            @ModelAttribute @Validated
+            JobApplicationRequest jobApplicationRequest
     ){
-        //TODO : CALL THE SERVICE TO JOB APPLICATION (job_id , applicant_id , )
-        this.jobApplicationService.applyToJob(jobApplicationRequest);
+        //: CALL THE SERVICE TO JOB APPLICATION (job_id , applicant_id , )
+        return this.jobApplicationService.applyToJob(jobApplicationRequest);
     }
 }

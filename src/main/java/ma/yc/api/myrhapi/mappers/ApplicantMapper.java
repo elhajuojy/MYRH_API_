@@ -2,6 +2,7 @@ package ma.yc.api.myrhapi.mappers;
 
 import ma.yc.api.myrhapi.dto.ApplicantRequest;
 import ma.yc.api.myrhapi.dto.ApplicantResponse;
+import ma.yc.api.myrhapi.dto.JobApplicationRequest;
 import ma.yc.api.myrhapi.entity.Applicant;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -11,9 +12,11 @@ public interface ApplicantMapper {
 
     ApplicantMapper INSTANCE  = Mappers.getMapper(ApplicantMapper.class);
     public Applicant toEntity(ApplicantRequest applicantRequest);
+    public Applicant toEntityFromJobApplicationRequest(JobApplicationRequest jobApplicationRequest);
     public ApplicantRequest toRequest(Applicant applicant);
 
     public ApplicantResponse toResponse(Applicant applicant);
+
 
 
 }

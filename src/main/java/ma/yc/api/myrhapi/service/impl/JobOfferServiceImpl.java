@@ -80,7 +80,7 @@ public class JobOfferServiceImpl implements JobOfferService {
 
     @Override
     public JobOfferResponse changeJobOfferVisibility(String jobOfferId, boolean visibility) {
-        Long id = Long.parseLong(jobOfferId);
+        Integer id = Integer.parseInt(jobOfferId);
         JobOffer jobOffer =  this.jobOfferRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("Job offer not found")
         );
@@ -94,5 +94,15 @@ public class JobOfferServiceImpl implements JobOfferService {
                         (visibility ?"visible":"invisible"));
 
         return jobOfferShiftBuilder.toResponse(jobOffer);
+    }
+
+
+    @Override
+    public JobOfferResponse getJobOfferById(Integer id) {
+        return this.jobOfferRepository.findById(id)
+                .map(jobOfferShiftBuilder::toResponse)
+                .orElseThrow(
+                        () -> new NotFoundException("Job offer not found")
+                );
     }
 }

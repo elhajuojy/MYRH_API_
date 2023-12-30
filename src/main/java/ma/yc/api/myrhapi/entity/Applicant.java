@@ -8,11 +8,12 @@ import java.util.List;
 
 @Entity
 @Data
+
 public class Applicant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String firstName;
     private String lastName;
     private String email;
@@ -23,10 +24,10 @@ public class Applicant {
     private String education;
     private String experience;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "JOB_APPLICATION",
-        joinColumns = @JoinColumn(name = "application_id"),
+        joinColumns = @JoinColumn(name = "applicant_id"),
         inverseJoinColumns = @JoinColumn(name = "job_offer_id")
     )
     private List<JobOffer> jobOffers = new ArrayList<>();

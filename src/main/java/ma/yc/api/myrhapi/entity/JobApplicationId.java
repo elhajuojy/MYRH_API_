@@ -14,16 +14,17 @@ import lombok.*;
 import java.io.Serializable;
 
 @Embeddable
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
+@ToString
 public class JobApplicationId implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "appliaction_id")
-    private Integer applicationId;
-
+    @Column(name = "applicant_id")
+    private Integer applicantId;
     @Column(name = "job_offer_id")
-    private Integer jobOfferId;
+    private Integer  jobOfferId;
 }

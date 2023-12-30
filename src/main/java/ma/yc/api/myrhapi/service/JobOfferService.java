@@ -14,5 +14,7 @@ public interface JobOfferService {
 
     JobOfferResponse changeJobOfferVisibility(String jobOfferId, boolean visibility);
 
+    JobOfferResponse getJobOfferById(Integer id);
+
 //    Page<JobOfferResponse> searchJobOffers(int page, int size, String... search);
 }

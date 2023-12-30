@@ -12,6 +12,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("api/v1/job_offers")
+@CrossOrigin("*")
 public class JobOfferController {
 
     private final JobOfferService jobOfferService;
@@ -25,6 +26,12 @@ public class JobOfferController {
             @RequestParam Map<String, String> queryParams
     ) {
         return ResponseEntity.ok(this.jobOfferService.getAllJobOffers(queryParams));
+    }
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<JobOfferResponse> getJobOfferById(@PathVariable Integer id) {
+        return ResponseEntity.ok(jobOfferService.getJobOfferById(id));
     }
 
     @PostMapping("/change_visibility")

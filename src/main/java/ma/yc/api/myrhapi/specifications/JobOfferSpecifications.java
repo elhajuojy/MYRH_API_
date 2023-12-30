@@ -16,6 +16,7 @@ public class JobOfferSpecifications {
 
     }
 
+
     public static Specification<JobOffer> locationLike(String location){
         return (root, query, criteriaBuilder)->criteriaBuilder.like(
                 criteriaBuilder.lower(root.get("location")),"%"+location.toLowerCase()+"%");
