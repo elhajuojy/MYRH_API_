@@ -43,7 +43,9 @@ public class ApplicationRunner implements CommandLineRunner {
     public void run(String... args) {
         System.out.println("TEST TEST");
         int level=1;
-        for (String job : new String[]{"job-1", "job-2", "job-3", "job-5"}) {
+        for (String job : new String[]{"job-1", "job-2", "job-3", "job-5","job-6", "job-7", "job-8", "job-9",
+                "job-10", "job-11", "job-12", "job-13", "job-14", "job-15", "job-16", "job-17", "job-18", "job-19", "job-20"
+        }) {
             logger.info("SAVING NEW JOBS FROM THE RUNNER " + job);
 
             JobOffer jobOffer = new JobOffer();
@@ -75,6 +77,12 @@ public class ApplicationRunner implements CommandLineRunner {
         Applicant applicant  = new Applicant();
         applicant.setLastName("Youssef");
         applicant.setFirstName("Cherkaoui");
+        applicant.setEmail("mehdi@gmail.com");
+        applicant.setAddress("Casablanca");
+        applicant.setEducation("BAC+5");
+        applicant.setExperience("2 years");
+        applicant.setPhoneNumber("0606060606");
+        applicant.setPassword("123");
         applicant = this.applicantRepository.save(applicant);
         applicant.getJobOffers().add(jobOffer);
 //        this.applicantRepository.save(applicant);

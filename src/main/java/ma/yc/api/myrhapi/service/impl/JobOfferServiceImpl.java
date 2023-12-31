@@ -59,6 +59,7 @@ public class JobOfferServiceImpl implements JobOfferService {
         String title = queryParams.getOrDefault("title","");
         String education = queryParams.getOrDefault("education","");
         String location = queryParams.getOrDefault("location","");
+
         logger.info("QUERY PARAMS" + queryParams.toString());
         //: build the page request
         PageRequest pageRequest = PageRequest.of(page, size);
