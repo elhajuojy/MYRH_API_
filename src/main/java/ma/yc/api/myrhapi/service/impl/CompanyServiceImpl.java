@@ -63,7 +63,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public CompanyResponse add(CompanyRequest companyRequest) {
-
+        logger.info("ADD NEW COMPANY WITH THIS INFORMATION : " + companyRequest.toString());
         //SEND EMAIL TO ADMIN TO VALIDATE THE COMPANY
         this.companyRepository.getCompanyByLogin(companyRequest.getLogin()).ifPresent(
                 company -> {
@@ -75,7 +75,7 @@ public class CompanyServiceImpl implements CompanyService {
         company.setEnabled(false);
         //: FIRST UPLOAD THE IMAGE TO THE SERVER THEN SAVE THE PATH IN THE DATABASE
 
-        company.setImagePath(FileUtils.uploadFileToFileSystem(companyRequest.getImage()));
+//        company.setImagePath(FileUtils.uploadFileToFileSystem(companyRequest.getImage()));
         company = companyRepository.save(company);
 
         //  : validation valable 3 min pour la confirmation de son inscription via un email/sms

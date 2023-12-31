@@ -7,35 +7,40 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CompanyRequest {
-    @NotNull(message = "Company name is required")
+public class CompanyRequest  implements Serializable {
+
+
+    private static final long serialVersionUID = 1L;
+//    @NotNull(message = "Company name is required")
     private String name;
 
-    @NotNull(message = "Company address is required")
+//    @NotNull(message = "Company address is required")
     private String address;
 
-    @NotNull(message = "Company login is required")
+//    @NotNull(message = "Company login is required")
     private String login;
 
-    @NotNull(message = "Company phone number is required")
+//    @NotNull(message = "Company phone number is required")
     private String phoneNumber;
 
-    @NotNull(message = "Company password is required")
+//    @NotNull(message = "Company password is required")
     private String password;
 
-    @Email(message = "Email should be valid")
+//    @Email(message = "Email should be valid")
     private String email;
 
 //    @NotNull(message = "Company website is required")
 
     private String website;
 
-    @NotNull(message = "Company description is required")
+//    @NotNull(message = "Company description is required")
     private String description;
 
-    @NotNull(message = "Company image is required")
-    private MultipartFile image;
+//    @NotNull(message = "Company image is required")
+//    private MultipartFile image;
 }
