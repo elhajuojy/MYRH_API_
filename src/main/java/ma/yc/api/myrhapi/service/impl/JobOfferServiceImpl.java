@@ -59,11 +59,12 @@ public class JobOfferServiceImpl implements JobOfferService {
         String title = queryParams.getOrDefault("title","");
         String education = queryParams.getOrDefault("education","");
         String location = queryParams.getOrDefault("location","");
-
+        String visibility = queryParams.getOrDefault("visibility","true");
         logger.info("QUERY PARAMS" + queryParams.toString());
         //: build the page request
         PageRequest pageRequest = PageRequest.of(page, size);
         Specification<JobOffer> spec = Specification.where(null);
+        spec = spec.and(JobOfferSpecifications.visibilityIs(visibility));
 
         if (title != null && !title.isEmpty())
             spec = spec.and(JobOfferSpecifications.titleLike(title));
@@ -89,9 +90,10 @@ public class JobOfferServiceImpl implements JobOfferService {
         this.jobOfferRepository.save(jobOffer);
 
         //: SEND EMAIL TO COMPANY TO INFORM HIM THAT HIS JOB OFFER IS NOW VISIBLE
-        this.emailService.sendEmail(jobOffer.getCompany().getEmail(),
-                "Job offer visibility changed",
-                "Your job offer visibility has been changed to "+
+//        jobOffer.getCompany().getEmail()
+        this.emailService.sendEmail("company-email@egmail.com",
+                "Job offer visibility changed"+jobOffer.getTitle(),
+                "Your job offer visibility has been changed to "+ jobOffer.getTitle() + " to " +
                         (visibility ?"visible":"invisible"));
 
         return jobOfferShiftBuilder.toResponse(jobOffer);

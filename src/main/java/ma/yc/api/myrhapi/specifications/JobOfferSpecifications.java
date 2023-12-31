@@ -22,4 +22,10 @@ public class JobOfferSpecifications {
                 criteriaBuilder.lower(root.get("location")),"%"+location.toLowerCase()+"%");
 
     }
+
+    public static Specification<JobOffer> visibilityIs(String visibility){
+        return (root, query, criteriaBuilder)->criteriaBuilder.equal(
+                root.get("visibility"),Boolean.parseBoolean(visibility));
+
+    }
 }
