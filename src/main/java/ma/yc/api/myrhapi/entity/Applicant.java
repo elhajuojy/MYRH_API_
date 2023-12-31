@@ -22,6 +22,7 @@ public class Applicant {
     private String resumePath;
     private String address;
     private String education;
+    private String password;
     private String experience;
 
     @ManyToMany(fetch = FetchType.EAGER)

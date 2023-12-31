@@ -10,4 +10,8 @@ public interface ApplicantService {
     public ApplicantResponse update(ApplicantRequest applicantRequest);
     public ApplicantResponse findById(Long id);
     public void delete(Long id);
+
+    ApplicantResponse authentication(
+            String login, String password
+    );
 }

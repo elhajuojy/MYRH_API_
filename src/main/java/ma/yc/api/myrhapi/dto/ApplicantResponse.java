@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class ApplicantResponse {
     private Long id;
     private String title;
+    private String email;
     private String description;
     private MultipartFile resume;
     private String phone;

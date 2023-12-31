@@ -40,11 +40,12 @@ public class JobApplicationServiceImpl implements JobApplicationService {
     public JobApplicationResponse applyToJob(JobApplicationRequest jobApplicationRequest) {
         //TODO: IMPLEMENT THIS METHOD
         JobApplication jobApplication = jobApplicationMapper.toEntity(jobApplicationRequest);
+        logger.info("JOB APPLICATION SAVED WITH ID : " + jobApplicationRequest.toString());
 
         //BEFORE CONVERTING TO JOB APPLICATION ENTITY I NEED TO UPLOAD THE CV TO THE CLOUD OR STATIC FOLDER IN THE SERVER
         //FIRST OF ALL NEED TO GET THE JOB_OFFER_ID AND THE APPLICANT_ID
         JobOffer jobOffer = this.jobOfferRepository.findById(jobApplicationRequest.getJobOfferId())
-                .orElseThrow(() -> new NotFoundException("Job Offer Not Found"));
+                .orElseThrow(() -> new RuntimeException("Job Offer Not Found"));
 
         Applicant applicant = this.applicantMapper.toEntityFromJobApplicationRequest(jobApplicationRequest);
         applicant.setResumePath(FileUtils.uploadFileToFileSystem(jobApplicationRequest.getResume()));

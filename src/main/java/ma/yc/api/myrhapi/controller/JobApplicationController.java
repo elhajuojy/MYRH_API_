@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/job_applications")
+//ALLOW ALL HEADERS AND ORIGINS
 @CrossOrigin("*")
 class JobApplicationController {
     private final JobApplicationService jobApplicationService;
@@ -20,7 +21,8 @@ class JobApplicationController {
     @PostMapping
     @Timed
     public JobApplicationResponse applyToJob(
-            @ModelAttribute @Validated
+            @ModelAttribute
+            @Validated
             JobApplicationRequest jobApplicationRequest
     ){
         //: CALL THE SERVICE TO JOB APPLICATION (job_id , applicant_id , )

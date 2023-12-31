@@ -6,17 +6,18 @@ import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import ma.yc.api.myrhapi.enums.EducationLevel;
 import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
+@ToString
 public class JobApplicationRequest {
     @NotNull(message = "name is required")
     private String name;
-    @NotNull(message = "first name is required")
+    @NotNull(message = "last name is required")
     private String lastName;
     @NotNull(message = "phone is required")
     @Pattern(regexp = "(^$|[0-9]{10})" , message = "phone number must be 10 digits")
