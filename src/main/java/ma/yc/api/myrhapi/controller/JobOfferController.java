@@ -30,7 +30,7 @@ public class JobOfferController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<JobOfferResponse> getJobOfferById(@PathVariable Integer id) {
+    public ResponseEntity<JobOfferResponse> getJobOfferById(@PathVariable Long id) {
         return ResponseEntity.ok(jobOfferService.getJobOfferById(id));
     }
 

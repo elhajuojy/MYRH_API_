@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import java.util.List;
 import java.util.Optional;
 
-public interface JobOfferRepository extends JpaRepository<JobOffer,Integer> , JpaSpecificationExecutor<JobOffer> {
+public interface JobOfferRepository extends JpaRepository<JobOffer,Long> , JpaSpecificationExecutor<JobOffer> {
 
     List<JobOffer> findByContract(Contract contract);
 

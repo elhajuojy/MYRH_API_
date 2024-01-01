@@ -38,7 +38,7 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
     @Override
     public JobApplicationResponse applyToJob(JobApplicationRequest jobApplicationRequest) {
-        //TODO: IMPLEMENT THIS METHOD
+        //: IMPLEMENT THIS METHOD
         JobApplication jobApplication = jobApplicationMapper.toEntity(jobApplicationRequest);
         logger.info("JOB APPLICATION SAVED WITH ID : " + jobApplicationRequest.toString());
 
@@ -48,15 +48,21 @@ public class JobApplicationServiceImpl implements JobApplicationService {
                 .orElseThrow(() -> new RuntimeException("Job Offer Not Found"));
 
         Applicant applicant = this.applicantMapper.toEntityFromJobApplicationRequest(jobApplicationRequest);
-        applicant.setResumePath(FileUtils.uploadFileToFileSystem(jobApplicationRequest.getResume()));
-        //CV UPLOADING
+        //TODO: CV UPLOADING
+//        applicant.setResumePath(FileUtils.uploadFileToFileSystem(jobApplicationRequest.getResume()));
         //save this application to the database
         applicant  = this.applicantRepository.save(applicant);
         logger.info("APPLICANT SAVED WITH ID : " + applicant.getId());
-
-
         applicant.getJobOffers().add(jobOffer);
         this.applicantRepository.save(applicant);
+
+//
+//        jobApplication.setApplicant(applicant);
+//        jobApplication.setJobOffer(jobOffer);
+//        jobApplication.setDate(java.time.LocalDateTime.now().toString());
+//        jobApplication.setStatus("PENDING");
+//        jobApplication = this.jobApplicationRepository.save(jobApplication);
+//        this.applicantRepository.save(applicant);
         logger.info("JOB OFFER SAVED WITH ID : " + jobOffer.getId());
 
 

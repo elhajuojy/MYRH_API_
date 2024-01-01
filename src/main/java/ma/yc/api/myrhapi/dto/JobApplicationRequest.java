@@ -33,10 +33,11 @@ public class JobApplicationRequest {
     private String experience;
     @NotNull(message = "education level is required")
     private EducationLevel educationLevel;
-    @NotNull(message = "resume is required")
+//    @NotNull(message = "resume is required")
+    //TODO: CHECK IF THE FILE IS NOT EMPTY
     private MultipartFile resume;
-    @NotNull(message = "resume is required")
+    @NotNull(message = "cover letter  is required")
     private String coverLetter;
     @NotNull(message = "job offer id is required")
-    private Integer jobOfferId;
+    private Long jobOfferId;
 }

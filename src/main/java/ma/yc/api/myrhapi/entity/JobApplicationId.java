@@ -16,15 +16,15 @@ import java.io.Serializable;
 @Embeddable
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
+@Data
 public class JobApplicationId implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Column(name = "applicant_id")
-    private Integer applicantId;
+    private Long applicantId;
     @Column(name = "job_offer_id")
-    private Integer  jobOfferId;
+    private Long  jobOfferId;
+
+
 }

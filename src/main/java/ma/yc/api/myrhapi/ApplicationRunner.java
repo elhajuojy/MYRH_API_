@@ -65,7 +65,7 @@ public class ApplicationRunner implements CommandLineRunner {
 
     public void saveFakeJobOffer() {
 
-        JobOffer jobOffer = this.jobOfferRepository.findById(2).orElseThrow(() -> new NotFoundException("Job Offer Not Found"));
+        JobOffer jobOffer = this.jobOfferRepository.findById(2L).orElseThrow(() -> new NotFoundException("Job Offer Not Found"));
 
         Applicant applicant = new Applicant();
         applicant.setLastName("Youssef");

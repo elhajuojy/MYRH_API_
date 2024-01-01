@@ -88,7 +88,7 @@ public class JobOfferServiceImpl implements JobOfferService {
 
     @Override
     public JobOfferResponse changeJobOfferVisibility(String jobOfferId, boolean visibility) {
-        Integer id = Integer.parseInt(jobOfferId);
+        Long id = Long.parseLong(jobOfferId);
         JobOffer jobOffer =  this.jobOfferRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("Job offer not found")
         );
@@ -107,7 +107,7 @@ public class JobOfferServiceImpl implements JobOfferService {
 
 
     @Override
-    public JobOfferResponse getJobOfferById(Integer id) {
+    public JobOfferResponse getJobOfferById(Long id) {
         return this.jobOfferRepository.findById(id)
                 .map(jobOfferShiftBuilder::toResponse)
                 .orElseThrow(

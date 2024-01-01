@@ -25,7 +25,7 @@ class JobApplicationController {
             @Validated
             JobApplicationRequest jobApplicationRequest
     ){
-        //: CALL THE SERVICE TO JOB APPLICATION (job_id , applicant_id , )
+        //: CALL THE SERVICE TO JOB APPLICATION (job_id , applicant_id )
         return this.jobApplicationService.applyToJob(jobApplicationRequest);
     }
 }
