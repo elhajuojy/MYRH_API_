@@ -1,8 +1,8 @@
-spring:
-  application:
-    name: myrh-service
-  cloud:
-    config:
-      uri: http://localhost:8071
-  profiles:
-    active: default
+#spring:
+#  application:
+#    name: myrh-service
+#  cloud:
+#    config:
+#      uri: http://localhost:8071
+#  profiles:
+#    active: default

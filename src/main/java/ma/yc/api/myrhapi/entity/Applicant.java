@@ -1,5 +1,6 @@
 package ma.yc.api.myrhapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -24,8 +25,9 @@ public class Applicant {
     private String education;
     private String password;
     private String experience;
+    private String imagePath;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "JOB_APPLICATION",
         joinColumns = @JoinColumn(name = "applicant_id"),

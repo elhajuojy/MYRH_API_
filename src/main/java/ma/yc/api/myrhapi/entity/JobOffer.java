@@ -34,7 +34,7 @@ public class JobOffer {
     @JoinColumn(name = "COMPANY_ID")
     private Company company;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "JOB_APPLICATION",
         joinColumns = @JoinColumn(name = "job_offer_id"),

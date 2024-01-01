@@ -1,11 +1,15 @@
 package ma.yc.api.myrhapi.service.impl;
 
+import jakarta.transaction.Transactional;
 import ma.yc.api.common.exception.business.NotFoundException;
+import ma.yc.api.myrhapi.dto.JobOfferApplicationsPageResponse;
 import ma.yc.api.myrhapi.dto.JobOfferRequest;
 import ma.yc.api.myrhapi.dto.JobOfferResponse;
-import ma.yc.api.myrhapi.entity.Company;
+import ma.yc.api.myrhapi.entity.JobApplication;
 import ma.yc.api.myrhapi.entity.JobOffer;
 import ma.yc.api.myrhapi.mappers.JobMapper;
+import ma.yc.api.myrhapi.repository.CompanyRepository;
+import ma.yc.api.myrhapi.repository.JobApplicationRepository;
 import ma.yc.api.myrhapi.repository.JobOfferRepository;
 import ma.yc.api.myrhapi.service.EmailService;
 import ma.yc.api.myrhapi.service.JobOfferService;
@@ -19,21 +23,27 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Service
+@Transactional
+@org.springframework.transaction.annotation.Transactional
 public class JobOfferServiceImpl implements JobOfferService {
 
     private final JobOfferRepository jobOfferRepository;
+    private final JobApplicationRepository jobApplicationRepository;
     private final JobMapper jobOfferShiftBuilder;
-
-
     private final EmailService emailService;
+    private final CompanyRepository companyRepository;
     private final Logger logger = org.slf4j.LoggerFactory.getLogger(JobOfferServiceImpl.class);
 
-    public JobOfferServiceImpl(JobOfferRepository jobOfferRepository,EmailService emailService) {
+    public JobOfferServiceImpl(JobOfferRepository jobOfferRepository, JobApplicationRepository jobApplicationRepository, EmailService emailService, CompanyRepository companyRepository) {
         this.jobOfferRepository = jobOfferRepository;
+        this.jobApplicationRepository = jobApplicationRepository;
         this.emailService = emailService;
+        this.companyRepository = companyRepository;
         this.jobOfferShiftBuilder = JobMapper.INSTANCE;
     }
 
@@ -113,5 +123,44 @@ public class JobOfferServiceImpl implements JobOfferService {
                 .orElseThrow(
                         () -> new NotFoundException("Job offer not found")
                 );
+    }
+
+    @Override
+    public Page<JobOfferResponse> getJobOffersByCompanyId(Long id, Map<String, String> queryParams) {
+        return
+                this.jobOfferRepository.findAllByCompanyId(id,PageRequest.of(
+                        Integer.parseInt(queryParams.getOrDefault("page","0")),
+                        Integer.parseInt(queryParams.getOrDefault("size","10"))
+                )).map(jobOfferShiftBuilder::toResponse);
+    }
+
+    @Override
+    public List<JobOfferApplicationsPageResponse> getJobOfferApplicationByJobOfferIdAndCompanyId(
+            String id, String jobOfferId, Map<String, String> queryParams) {
+        //FIND ALL JOB OFFER RELATED TO THE COMPANY FOR THE BETWEEN TABLE JOB APPLICATION
+
+
+        JobOffer jobOffer = this.jobOfferRepository.findById(Long.parseLong(jobOfferId)).orElseThrow(
+                () -> new NotFoundException("Job offer not found")
+        );
+
+        List<JobApplication> jobApplications = this.jobApplicationRepository.findAllByJobOffer(jobOffer);
+        //:MAPPING TO DTO
+        List<JobOfferApplicationsPageResponse> jobOfferApplicationsPageResponses  = new ArrayList<>();
+        jobApplications.forEach(jobApplication -> {
+            logger.info("JOB APPLICATION" + jobApplication.getStatus());
+            //TODO: MAPPING TO DTO THEN RETURN THE LIST
+            jobOfferApplicationsPageResponses.add(
+                    JobOfferApplicationsPageResponse.builder()
+                            //TODO: ID IS THE JOB OFFER ID
+                            .id(jobApplication.getJobOffer().getId().toString())
+                            .cvUrl(jobApplication.getApplicant().getResumePath())
+                            .email(jobApplication.getApplicant().getEmail())
+                            .fullName(jobApplication.getApplicant().getFirstName()+" "+jobApplication.getApplicant().getLastName())
+                            .phoneNumber(jobApplication.getApplicant().getPhoneNumber())
+                            .build()
+            );
+        });
+        return jobOfferApplicationsPageResponses;
     }
 }

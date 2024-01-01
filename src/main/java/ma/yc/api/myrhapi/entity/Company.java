@@ -24,6 +24,6 @@ public class Company {
     private String imagePath;
     private boolean enabled = false;
 
-    @OneToMany(mappedBy = "company")
+    @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
     private List<JobOffer> jobOffers = new ArrayList<>();
 }

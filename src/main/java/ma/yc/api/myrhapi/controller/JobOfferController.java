@@ -1,5 +1,6 @@
 package ma.yc.api.myrhapi.controller;
 
+import ma.yc.api.myrhapi.dto.JobOfferApplicationsPageResponse;
 import ma.yc.api.myrhapi.dto.JobOfferChangeVisibilityRequest;
 import ma.yc.api.myrhapi.dto.JobOfferRequest;
 import ma.yc.api.myrhapi.dto.JobOfferResponse;
@@ -8,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -33,6 +35,31 @@ public class JobOfferController {
     public ResponseEntity<JobOfferResponse> getJobOfferById(@PathVariable Long id) {
         return ResponseEntity.ok(jobOfferService.getJobOfferById(id));
     }
+
+    @GetMapping("company/{id}")
+    public ResponseEntity<Page<JobOfferResponse>> getJobOffersByCompanyId(
+            @PathVariable Long id,
+            @RequestParam Map<String, String> queryParams
+    ) {
+        return ResponseEntity.ok(jobOfferService.getJobOffersByCompanyId(id, queryParams));
+    }
+
+
+    @GetMapping("company/{id}/applications/{jobOfferId}")
+    public ResponseEntity<List<JobOfferApplicationsPageResponse>> getJobOfferApplicationByJobOfferIdAndCompanyId(
+            @PathVariable String id,
+            @PathVariable String jobOfferId,
+            @RequestParam Map<String, String> queryParams
+    ) {
+        return ResponseEntity.ok(
+                jobOfferService.getJobOfferApplicationByJobOfferIdAndCompanyId(id, jobOfferId, queryParams)
+        );
+    }
+
+
+
+
+
 
     @PostMapping("/change_visibility")
     public ResponseEntity<JobOfferResponse> changeJobOfferVisibility(

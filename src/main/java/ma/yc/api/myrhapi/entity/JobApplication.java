@@ -22,10 +22,10 @@ public class JobApplication {
     @Column(name = "DATE")
     private String date = java.time.LocalDateTime.now().toString();
 
-    @ManyToOne
+    @ManyToOne()
     @MapsId("applicantId")
     private Applicant applicant;
-    @ManyToOne
+    @ManyToOne()
     @MapsId("jobOfferId")
     private JobOffer jobOffer;
 }

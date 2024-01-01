@@ -1,6 +1,7 @@
 package ma.yc.api.myrhapi.repository;
 import ma.yc.api.myrhapi.entity.JobOffer;
 import ma.yc.api.myrhapi.enums.Contract;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
@@ -12,6 +13,8 @@ public interface JobOfferRepository extends JpaRepository<JobOffer,Long> , JpaSp
     List<JobOffer> findByContract(Contract contract);
 
     List<JobOffer> findByTitle(String title);
+    Page<JobOffer> findAllByCompanyId(Long id, org.springframework.data.domain.Pageable pageable);
+    List<JobOffer> findByIdAndCompanyId(Long id, Long companyId);
 
 
 }
