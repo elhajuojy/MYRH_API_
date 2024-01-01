@@ -20,7 +20,7 @@ public class Config {
                 @Override
                 public void addCorsMappings(CorsRegistry registry) {
                     registry.addMapping("/api/**")
-                            .allowedOrigins("http://localhost:4200") // Add your frontend URL here
+                            .allowedOrigins("http://localhost:4200")
                             .allowedMethods("POST", "GET", "PUT", "DELETE")
                             .allowedHeaders("Content-Type")
                             .allowCredentials(true);

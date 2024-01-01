@@ -25,11 +25,7 @@ public class ApplicationRunner implements CommandLineRunner {
     private final ApplicantRepository applicantRepository;
     private Logger logger = LoggerFactory.getLogger("CommandRunner");
 
-    public ApplicationRunner(
-            JobOfferRepository jobOfferRepository,
-           JobApplicationRepository jobApplicationRepository,
-            ApplicantRepository applicantRepository
-
+    public ApplicationRunner(JobOfferRepository jobOfferRepository, JobApplicationRepository jobApplicationRepository, ApplicantRepository applicantRepository
 
 
     ) {
@@ -42,18 +38,16 @@ public class ApplicationRunner implements CommandLineRunner {
     @Override
     public void run(String... args) {
         System.out.println("TEST TEST");
-        int level=1;
-        for (String job : new String[]{"job-1", "job-2", "job-3", "job-5","job-6", "job-7", "job-8", "job-9",
-                "job-10", "job-11", "job-12", "job-13", "job-14", "job-15", "job-16", "job-17", "job-18", "job-19", "job-20"
-        }) {
+        int level = 1;
+        for (String job : new String[]{"job-1", "job-2", "job-3", "job-5", "job-6", "job-7", "job-8", "job-9", "job-10", "job-11", "job-12", "job-13", "job-14", "job-15", "job-16", "job-17", "job-18", "job-19", "job-20"}) {
             logger.info("SAVING NEW JOBS FROM THE RUNNER " + job);
 
             JobOffer jobOffer = new JobOffer();
             jobOffer.setTitle(job);
             jobOffer.setDescription("description for " + job);
             jobOffer.setContract(Contract.CDI);
-            jobOffer.setEducation("BAC-"+level);
-            level=level+2;
+            jobOffer.setEducation("BAC-" + level);
+            level = level + 2;
             jobOffer.setLocation("Casablanca");
             jobOffer.setSalary(10000.0);
             jobOffer.setVisibility(false);
@@ -69,12 +63,11 @@ public class ApplicationRunner implements CommandLineRunner {
     }
 
 
-    public void saveFakeJobOffer(){
+    public void saveFakeJobOffer() {
 
-        JobOffer jobOffer = this.jobOfferRepository.findById(2)
-                .orElseThrow(() -> new NotFoundException("Job Offer Not Found"));
+        JobOffer jobOffer = this.jobOfferRepository.findById(2).orElseThrow(() -> new NotFoundException("Job Offer Not Found"));
 
-        Applicant applicant  = new Applicant();
+        Applicant applicant = new Applicant();
         applicant.setLastName("Youssef");
         applicant.setFirstName("Cherkaoui");
         applicant.setEmail("mehdi@gmail.com");
@@ -85,7 +78,7 @@ public class ApplicationRunner implements CommandLineRunner {
         applicant.setPassword("123");
         applicant = this.applicantRepository.save(applicant);
         applicant.getJobOffers().add(jobOffer);
-//        this.applicantRepository.save(applicant);
+
         logger.info("APPLICANT SAVED WITH ID : " + applicant.getId());
         logger.info("JOB OFFER SAVED WITH ID : " + jobOffer.getId());
 

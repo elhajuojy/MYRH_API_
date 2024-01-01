@@ -56,28 +56,34 @@ public class JobOfferServiceImpl implements JobOfferService {
         int size = Integer.parseInt(queryParams.getOrDefault("size","10"));
 
         //: get the query params
-        String title = queryParams.getOrDefault("title","");
-        String education = queryParams.getOrDefault("education","");
-        String location = queryParams.getOrDefault("location","");
-        String visibility = queryParams.getOrDefault("visibility","true");
+
         logger.info("QUERY PARAMS" + queryParams.toString());
         //: build the page request
         PageRequest pageRequest = PageRequest.of(page, size);
-        Specification<JobOffer> spec = Specification.where(null);
-        spec = spec.and(JobOfferSpecifications.visibilityIs(visibility));
 
+        Specification<JobOffer> spec = getJobOfferSpecification(queryParams);
+
+        return jobOfferRepository.findAll(spec,pageRequest)
+                .map(jobOfferShiftBuilder::toResponse);
+    }
+
+    private Specification<JobOffer> getJobOfferSpecification(Map<String, String> queryParams) {
+        Specification<JobOffer> spec = Specification.where(null);
+        String title = queryParams.getOrDefault("title","");
+        String education = queryParams.getOrDefault("education","");
+        String location = queryParams.getOrDefault("location","");
+        String visibility = queryParams.getOrDefault("visibility","");
         if (title != null && !title.isEmpty())
             spec = spec.and(JobOfferSpecifications.titleLike(title));
         if (education != null && !education.isEmpty())
             spec = spec.and(JobOfferSpecifications.educationLike(education));
         if (location != null && !location.isEmpty())
             spec = spec.and(JobOfferSpecifications.locationLike(location));
+        if (visibility != null && !visibility.isEmpty())
+            spec = spec.and(JobOfferSpecifications.visibilityIs(visibility));
 
         logger.info("FIND BY SPECIFICATION" + spec.toString());
-
-
-        return jobOfferRepository.findAll(spec,pageRequest)
-                .map(jobOfferShiftBuilder::toResponse);
+        return spec;
     }
 
     @Override
