@@ -9,10 +9,12 @@ import ma.yc.api.myrhapi.enums.Contract;
 @AllArgsConstructor
 public class JobOfferRequest {
 
-    private final String title;
-    private final String description;
-    private final double salary;
-    private final String location;
-    private final Contract contract;
-    private final String education;
+    private  String title;
+    private  String description;
+    private  double salary;
+    private  String location;
+    private  Contract contract;
+    private  String education;
+    private String company_id;
+
 }
