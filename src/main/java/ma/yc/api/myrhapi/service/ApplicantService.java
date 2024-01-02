@@ -11,7 +11,5 @@ public interface ApplicantService {
     public ApplicantResponse findById(Long id);
     public void delete(Long id);
 
-    ApplicantResponse authentication(
-            String login, String password
-    );
+    ApplicantResponse authentication(String login, String password);
 }

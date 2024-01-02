@@ -48,8 +48,9 @@ public class JobApplicationServiceImpl implements JobApplicationService {
                 .orElseThrow(() -> new RuntimeException("Job Offer Not Found"));
 
         Applicant applicant = this.applicantMapper.toEntityFromJobApplicationRequest(jobApplicationRequest);
+
         //TODO: CV UPLOADING
-//        applicant.setResumePath(FileUtils.uploadFileToFileSystem(jobApplicationRequest.getResume()));
+        applicant.setResumePath(FileUtils.uploadFileToFileSystem(jobApplicationRequest.getResume()));
         //save this application to the database
         applicant  = this.applicantRepository.save(applicant);
         logger.info("APPLICANT SAVED WITH ID : " + applicant.getId());

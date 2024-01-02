@@ -11,6 +11,5 @@ public interface
 JobApplicationRepository extends JpaRepository<JobApplication,Integer> {
     public List<JobApplication> findByStatus(String status );
     public List<JobApplication> findByJobOfferId(Long id);
-
     List<JobApplication> findAllByJobOffer(JobOffer jobOffer);
 }

@@ -29,7 +29,6 @@ import java.util.Map;
 
 @Service
 @Transactional
-@org.springframework.transaction.annotation.Transactional
 public class JobOfferServiceImpl implements JobOfferService {
 
     private final JobOfferRepository jobOfferRepository;
@@ -78,11 +77,13 @@ public class JobOfferServiceImpl implements JobOfferService {
     }
 
     private Specification<JobOffer> getJobOfferSpecification(Map<String, String> queryParams) {
+
         Specification<JobOffer> spec = Specification.where(null);
         String title = queryParams.getOrDefault("title","");
         String education = queryParams.getOrDefault("education","");
         String location = queryParams.getOrDefault("location","");
         String visibility = queryParams.getOrDefault("visibility","");
+
         if (title != null && !title.isEmpty())
             spec = spec.and(JobOfferSpecifications.titleLike(title));
         if (education != null && !education.isEmpty())

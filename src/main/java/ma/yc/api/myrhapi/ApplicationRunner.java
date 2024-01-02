@@ -64,7 +64,7 @@ public class ApplicationRunner implements CommandLineRunner {
             level = level + 2;
             jobOffer.setLocation("Casablanca");
             jobOffer.setSalary(10000.0);
-            jobOffer.setVisibility(false);
+            jobOffer.setVisibility(true);
             jobOffer.setCompany(company);
             jobOfferRepository.save(jobOffer);
         }

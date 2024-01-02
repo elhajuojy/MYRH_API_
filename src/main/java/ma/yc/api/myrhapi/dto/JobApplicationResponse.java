@@ -37,4 +37,5 @@ public class JobApplicationResponse {
     private MultipartFile coverLetter;
     @NotNull(message = "job offer id is required")
     private Long jobOfferId;
+
 }

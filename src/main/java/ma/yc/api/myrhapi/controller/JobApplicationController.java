@@ -1,9 +1,11 @@
 package ma.yc.api.myrhapi.controller ;
 
 import io.micrometer.core.annotation.Timed;
+import jakarta.validation.Valid;
 import ma.yc.api.myrhapi.dto.JobApplicationRequest;
 import ma.yc.api.myrhapi.dto.JobApplicationResponse;
 import ma.yc.api.myrhapi.service.JobApplicationService;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,11 +20,11 @@ class JobApplicationController {
     }
 
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Timed
     public JobApplicationResponse applyToJob(
             @ModelAttribute
-            @Validated
+            @Valid
             JobApplicationRequest jobApplicationRequest
     ){
         //: CALL THE SERVICE TO JOB APPLICATION (job_id , applicant_id )
