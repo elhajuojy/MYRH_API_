@@ -12,6 +12,7 @@ import ma.yc.api.myrhapi.mappers.JobApplicationMapper;
 import ma.yc.api.myrhapi.repository.ApplicantRepository;
 import ma.yc.api.myrhapi.repository.JobApplicationRepository;
 import ma.yc.api.myrhapi.repository.JobOfferRepository;
+import ma.yc.api.myrhapi.service.CloudinaryService;
 import ma.yc.api.myrhapi.service.JobApplicationService;
 import ma.yc.api.myrhapi.utils.FileUtils;
 import org.apache.commons.lang3.NotImplementedException;
@@ -22,14 +23,15 @@ import org.springframework.stereotype.Service;
 public class JobApplicationServiceImpl implements JobApplicationService {
 
     private final JobApplicationRepository jobApplicationRepository;
+    private final CloudinaryService cloudinaryService;
     private final JobOfferRepository jobOfferRepository;
     private final ApplicantRepository applicantRepository;
-    //TODO : MAPPER HERE
     private final JobApplicationMapper jobApplicationMapper;
     private final ApplicantMapper applicantMapper;
     Logger logger = org.slf4j.LoggerFactory.getLogger(JobApplicationServiceImpl.class);
-    public JobApplicationServiceImpl(JobApplicationRepository jobApplicationRepository, JobOfferRepository jobOfferRepository, ApplicantRepository applicantRepository) {
+    public JobApplicationServiceImpl(JobApplicationRepository jobApplicationRepository, CloudinaryService cloudinaryService, JobOfferRepository jobOfferRepository, ApplicantRepository applicantRepository) {
         this.jobApplicationRepository = jobApplicationRepository;
+        this.cloudinaryService = cloudinaryService;
         this.jobOfferRepository = jobOfferRepository;
         this.applicantRepository = applicantRepository;
         this.jobApplicationMapper = JobApplicationMapper.INSTANCE;
@@ -50,20 +52,19 @@ public class JobApplicationServiceImpl implements JobApplicationService {
         Applicant applicant = this.applicantMapper.toEntityFromJobApplicationRequest(jobApplicationRequest);
 
         //TODO: CV UPLOADING
-        applicant.setResumePath(FileUtils.uploadFileToFileSystem(jobApplicationRequest.getResume()));
+//        applicant.setResumePath(FileUtils.uploadFileToFileSystem(jobApplicationRequest.getResume()));
+        try{
+            applicant.setResumePath(cloudinaryService.uploadFile (jobApplicationRequest.getResume(), "resumes"));
+        }catch (Exception e){
+            logger.error("ERROR WHILE UPLOADING CV : " + e.getMessage());
+        }
         //save this application to the database
         applicant  = this.applicantRepository.save(applicant);
         logger.info("APPLICANT SAVED WITH ID : " + applicant.getId());
         applicant.getJobOffers().add(jobOffer);
         this.applicantRepository.save(applicant);
 
-//
-//        jobApplication.setApplicant(applicant);
-//        jobApplication.setJobOffer(jobOffer);
-//        jobApplication.setDate(java.time.LocalDateTime.now().toString());
-//        jobApplication.setStatus("PENDING");
-//        jobApplication = this.jobApplicationRepository.save(jobApplication);
-//        this.applicantRepository.save(applicant);
+
         logger.info("JOB OFFER SAVED WITH ID : " + jobOffer.getId());
 
 
